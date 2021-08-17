@@ -100,6 +100,19 @@ def loads(s, encoding=None, cls=None, object_hook=None, parse_float=None,
     return _walk_ast(ast, dictify, parse_float, parse_int, parse_constant)
 
 
+def loadFile(path, encoding=None, cls=None, object_hook=None, parse_float=None,
+         parse_int=None, parse_constant=None, object_pairs_hook=None,
+         allow_duplicate_keys=True):
+    _file = open(path, 'r')
+    _tree = load(_file, encoding=encoding, cls=cls, object_hook=object_hook,
+                 parse_float=parse_float, parse_int=parse_int,
+                 parse_constant=parse_constant,
+                 object_pairs_hook=object_pairs_hook,
+                 allow_duplicate_keys=allow_duplicate_keys)
+    _file.close()
+    return _tree
+
+
 def _reject_duplicate_keys(pairs, dictify):
     keys = set()
     for key, _ in pairs:
